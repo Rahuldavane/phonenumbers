@@ -1,0 +1,56 @@
+<html ng-app="app">
+	<head>
+		<script type="text/javascript" src="angular.js"></script>
+		<script type="text/javascript">
+angular.module('app', [])
+.controller('myCtrl', ['$scope', '$window','$http',
+	function($scope,$window,$http) {
+	$scope.flag = true;
+	$scope.result = "";
+	$scope.xVar = "";
+	$scope.yVar = "";
+	$scope.check = function() {
+		$scope.x = $scope.valueCode;
+		$scope.y = $scope.valueNum;
+		if($scope.x > 0  && $scope.x < 9999){
+			$scope.flag = true;
+		}
+		else if($scope.y > 0  && $scope.y < 9999999999){
+				$scope.flag = true;
+		}else{
+				$scope.flag = false;
+		}
+		if($scope.x > 9999){
+			$scope.flag = true; 
+		}
+		if($scope.y > 9999999999){
+			$scope.flag = true; 
+		}
+		$scope.xVar = $scope.x;
+		$scope.yVar = $scope.y;
+	}
+	$scope.fun = function() {
+		$scope.result = $scope.xVar+$scope.yVar;
+	}
+}
+]);
+
+</script>	
+		
+	</head>
+	<body ng-controller="myCtrl">
+	<div>
+		+<input ng-model="valueCode" ng-keyup="check()">
+		<input ng-model="valueNum" ng-keyup="check()">
+		<button ng-click="fun()" ng-disabled="x > 10000 || y > 9999999999 || y < 1000000000">Submit</button>
+	</div>
+	<hr>
+	<div>
+		<div ng-hide="flag">Only number allow</div>
+		<div ng-if="x > 9999">Only Four Digits Allow</div>
+		<div ng-if="y > 9999999999">Only Ten Digits Allow</div>
+	</div>
+	
+	{{result}}
+	</body>
+</html>
